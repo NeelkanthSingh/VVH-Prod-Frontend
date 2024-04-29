@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 ReactDOM.createRoot(document.getElementById("root")).render(
 <RecoilRoot>
   <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_API_TOKEN}>
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Router />
     </BrowserRouter>
   </GoogleOAuthProvider>
