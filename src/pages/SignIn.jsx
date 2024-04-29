@@ -37,7 +37,7 @@ const SignIn = () => {
   }, [auth, refresh]);
 
   const login = () => {
-    window.location.href = "http://api.versionvaulthub.com/auth/google";
+    window.location.href = "https://api.versionvaulthub.com/auth/google";
   };
 
   return (
