@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://api.versionvaulthub.com/";
+const BASE_URL = "https://api.versionvaulthub.com/";
 
 export default axios.create({
     baseURL: BASE_URL
