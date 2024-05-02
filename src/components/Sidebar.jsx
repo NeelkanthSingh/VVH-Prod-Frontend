@@ -62,6 +62,12 @@ const Sidebar = () => {
       return;
     }
 
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+    if (file.size > maxSize) {
+      alert('File size exceeds 2MB limit.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", fileName);
     formData.append("file", file);
@@ -88,7 +94,7 @@ const Sidebar = () => {
           </form>
           <form id="submitDocument" encType="multipart/form-data" onSubmit={submitForm}>
             <label htmlFor="file" className="label">Select a file:</label>
-            <input type="file" accept=".pdf,.doc,.docx" className="file-input file-input-sm file-input-bordered file-input-info w-full max-w-xs" ref={fileInput} onChange={(e) => setFile(e.target.files[0])} />
+            <input type="file" accept=".pdf,.doc,.docx,.png,.svg,.git,.jpg,.jpeg" className="file-input file-input-sm file-input-bordered file-input-info w-full max-w-xs" ref={fileInput} onChange={(e) => setFile(e.target.files[0])} />
             <br /><br />
             <label htmlFor="name" className="label">Document Name:</label>
             <input type="text" id="name" placeholder="Document Name" className="input file-input-sm input-bordered w-full max-w-xs" value={fileName} onChange={(e) => setFileName(e.target.value)} />
@@ -112,7 +118,7 @@ const Sidebar = () => {
                 </button>
               ))}
             </nav>
-            <div className={`mt-8 ${location.pathname === "/docs" ? "border-t border-base-content" : null}`}>
+            <div className={`${location.pathname === "/docs" ? "mt-8 border-t border-base-content" : "hidden"}`}>
               <nav className="flex flex-col gap-4 mt-8 justify-start ">
                 {location.pathname === "/docs" && featureSidebar1.map((item) => (
                   <button
@@ -126,7 +132,7 @@ const Sidebar = () => {
                 ))}
               </nav>
             </div>
-            <div className={`mt-8 ${location.pathname === "/doc" ? "border-t border-base-content" : null}`}>
+            <div className={`${location.pathname === "/doc" ? "mt-8 border-t border-base-content" : "hidden"}`}>
               <nav className="flex flex-col gap-4 mt-8 justify-start ">
                 {location.pathname === "/doc" && featureSidebar2.map((item) => (
                   <button
@@ -140,7 +146,7 @@ const Sidebar = () => {
                 ))}
               </nav>
             </div>
-            <div className={`mt-8 ${location.pathname === "/profile" ? "border-t border-base-content" : null}`}>
+            <div className={`${location.pathname === "/profile" ? "mt-8 border-t border-base-content" : "hidden"}`}>
               <nav className="flex flex-col gap-4 mt-8 justify-start ">
                 {location.pathname === "/profile" && featureSidebar3.map((item) => (
                   <button
