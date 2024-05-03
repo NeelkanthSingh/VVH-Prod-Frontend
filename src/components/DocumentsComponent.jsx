@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useState, useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { authAtom } from '../store/atoms/authAtom';
 import axios from '../api/axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import uploadingAtom from '../store/atoms/uploadingAtom';
 
 const DocumentComponent = () => {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ const DocumentComponent = () => {
     const [auth, setAuth] = useRecoilState(authAtom);
     const [documents, setDocuments] = useState([]);
     const [search, setSearch] = useState('');
+    const uploading = useRecoilValue(uploadingAtom);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -33,7 +35,7 @@ const DocumentComponent = () => {
         };
 
         fetchData();
-    }, [auth])
+    }, [auth, setAuth, navigate, location, uploading])
 
    const filteredDocuments = documents.filter(doc =>
     doc.doc_name.toLowerCase().includes(search.toLowerCase())
@@ -65,11 +67,14 @@ const DocumentComponent = () => {
                     </svg>
                 </label>
 
-                <div className="stats w-48 h-24 flex items-center">
-                    <div className="stat">
-                        <div className="stat-title text-blue-700">Total documents</div>
-                        <div className="stat-value text-blue-700">{documents.length}</div>
+                <div className='flex justify-items-end'>
+                    <div className="stats w-48 h-24 flex items-center">
+                        <div className="stat">
+                            <div className="stat-title text-blue-700">Total documents</div>
+                            <div className="stat-value text-blue-700">{documents.length}</div>
+                        </div>
                     </div>
+                    {uploading ? <span className="loading loading-ball loading-md text-accent"></span> : null}
                 </div>
             </div>
 
